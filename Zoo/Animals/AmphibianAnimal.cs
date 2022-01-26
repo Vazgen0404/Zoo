@@ -9,8 +9,11 @@ namespace Zoo
     class AmphibianAnimal : Animal, IWalkable, ISwimmable
     {
         public AmphibianAnimal(string name, DateTime dt, Gender gender, int stomachSize) 
-            : base(name, dt, gender, stomachSize)
+            : base(name, dt, gender)
         {
+            Menu.Add(new Food("Food for amphibians 1",30));
+            Menu.Add(new Food("Food for amphibians 2",35));
+            Menu.Add(new Food("Food for amphibians 3",40));
         }
 
         public void swim()

@@ -31,17 +31,17 @@ namespace Zoo
         }
         private Gender Gender { get; set; }
         private IStomach Stomach { get; set; }
-        private List<Food> Menu { get; set; }
+        public List<Food> Menu { get; set; }
 
         public bool Alive;
-        public Animal(string name, DateTime dt, Gender gender, int stomachSize)
+        public Animal(string name, DateTime dt, Gender gender)
         {
             id++;
             Id = id;
             Name = name;
             Birthday = dt;
             Gender = gender;
-            Stomach = new Stomach(stomachSize);
+            Stomach = new Stomach();
             Menu = new List<Food>();
             Alive = true;
             SetTimer();

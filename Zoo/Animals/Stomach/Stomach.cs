@@ -26,26 +26,11 @@ namespace Zoo
             }
         }
 
-        private int size;
-        public int Size
-        {
-            get { return size; }
-            set
-            {
-                if (value > 0)
-                {
-                    size = value;
-                }
-                else
-                {
-                    throw new Exception("The stomach size must be greater then 0");
-                }
-            }
-        }
+        public int Size { get;}
 
-        public Stomach(int size)
+        public Stomach()
         {
-            Size = size;
+            Size = 100;
             Content = Size;
         }
 

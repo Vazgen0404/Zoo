@@ -6,12 +6,22 @@ using System.Threading.Tasks;
 
 namespace Zoo
 {
-    class Food
+     class Food
     {
         private static int id;
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                { name = value; }
+                else throw new Exception("Please input name ");
+            }
+        }
 
         private int calories;
         public int Calories

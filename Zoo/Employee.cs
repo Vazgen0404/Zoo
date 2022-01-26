@@ -15,7 +15,12 @@ namespace Zoo
         public string Name
         {
             get { return name; }
-            set { if (!String.IsNullOrEmpty(value)) name = value; }
+            set
+            {
+                if (!String.IsNullOrEmpty(value))
+                { name = value; }
+                else throw new Exception("Please input name ");
+            }
         }
 
         private int age;
