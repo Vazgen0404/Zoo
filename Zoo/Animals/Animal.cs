@@ -56,15 +56,23 @@ namespace Zoo
         }
         public void Eat()
         {
+            bool ate = false;
             foreach (var food in Cage.Plate.Foods)
             {
                 if (CanEat(food))
                 {
                     Stomach.Fill(food);
+                    ate = true;
                     Cage.Plate.Foods.Remove(food);
                     break;
                 }
             }
+            if (!ate) MakeSound();
+
+        }
+
+        private void MakeSound()
+        {
             
         }
 
@@ -76,6 +84,10 @@ namespace Zoo
         private void GetHungry(object sender, ElapsedEventArgs e)
         {
             Stomach.Digest(ref Alive);
+            if (Stomach.Content < 50)
+            {
+                Eat();
+            }
         }
 
         public void Information()

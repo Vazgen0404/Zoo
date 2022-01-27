@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Zoo
 {
@@ -45,6 +46,15 @@ namespace Zoo
             Name = name;
             Age = age;
             PersonalCages = new List<Cage>();
+            SetTimer();
+        }
+
+        private void SetTimer()
+        {
+            Timer timer = new Timer(40000);
+            timer.Elapsed += Function;
+            timer.AutoReset = true;
+            timer.Enabled = true;
         }
 
         public void AddCustomCage(Cage cage)
@@ -52,7 +62,7 @@ namespace Zoo
             PersonalCages.Add(cage);
         }
 
-        public abstract void Function();
+        public abstract void Function(object sender, ElapsedEventArgs e);
         public override string ToString()
         {
             string information = $"{Id}. {Name}    Personal cages - ";

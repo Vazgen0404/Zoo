@@ -88,20 +88,20 @@ namespace Zoo
         {
             Console.Clear();
             ShowEmployees();
-            Console.Write("Input ID - ");
+            Console.Write("Input employee ID - ");
             int empID = Convert.ToInt32(Console.ReadLine());
 
             if (!Zoo.Employees.ContainsKey(empID)) throw new Exception("Id not found");
 
             ShowCages();
-            Console.Write("Input ID - ");
+            Console.Write("Input Cage ID - ");
             int cageID = Convert.ToInt32(Console.ReadLine());
 
             if (!Zoo.Cages.ContainsKey(cageID)) throw new Exception("Id not found");
 
             if (!Zoo.Employees[empID].PersonalCages.Contains(Zoo.Cages[cageID]))
             {
-                Zoo.Employees[empID].PersonalCages.Add(Zoo.Cages[cageID]);
+                Zoo.Employees[empID].AddCustomCage(Zoo.Cages[cageID]);
             }
             else throw new Exception("This Cage is already personal");
 
@@ -112,7 +112,7 @@ namespace Zoo
             Console.Clear();
             foreach (var cage in Zoo.Cages.Values)
             {
-                cage.ToString();
+                Console.WriteLine(cage.ToString()); 
             }
         }
 
@@ -139,11 +139,11 @@ namespace Zoo
         {
             foreach (var cage in Zoo.Cages.Values)
             {
-                cage.ToString();
+                Console.WriteLine(cage.ToString()); 
                 Console.WriteLine("Animals.");
                 foreach (var animal in cage.Animals)
                 {
-                    animal.ToString();
+                    Console.WriteLine(animal.ToString()); 
                 }
                 Console.WriteLine();
             }
@@ -228,11 +228,11 @@ namespace Zoo
 
         private static int SelectAnimalType()
         {
-            Console.WriteLine("1.  OverLand Animal");
+            Console.WriteLine("1.  AmphibianAnimal Animal");
             Console.WriteLine("2.  Aquatic Animal");
             Console.WriteLine("3.  Bird");
-            Console.WriteLine("4.  Reptail");
-            Console.WriteLine("5.  AmphibianAnimal");
+            Console.WriteLine("4.  Overland");
+            Console.WriteLine("5.  Reptile");
             Console.WriteLine();
 
             Console.WriteLine("Select Animal type");
@@ -303,11 +303,12 @@ namespace Zoo
 
         private static void CreateAnimal(int input, string name, DateTime dt, Gender gender)
         {
+            Console.Clear();
             Animal animal = null;
             switch (input)
             {
                 case 1:
-                    animal = new OverlandAnimal(name, dt, gender);
+                    animal = new AmphibianAnimal(name, dt, gender);
                     break;
                 case 2:
                     animal = new AquaticAnimal(name, dt, gender);
@@ -316,10 +317,10 @@ namespace Zoo
                     animal = new BirdAnimal(name, dt, gender);
                     break;
                 case 4:
-                    animal = new ReptileAnimal(name, dt, gender);
+                    animal = new OverlandAnimal(name, dt, gender);
                     break;
                 case 5:
-                    animal = new AmphibianAnimal(name, dt, gender);
+                    animal = new ReptileAnimal(name, dt, gender);
                     break;
             }
             Zoo.Animals.Add(animal.Id, animal);
@@ -334,7 +335,8 @@ namespace Zoo
             {
                 Console.WriteLine(cage.ToString());
             }
-            Console.Write("Input cage Id - ");
+            Console.WriteLine();
+            Console.Write("Select Cage Id - ");
             int input = Convert.ToInt32(Console.ReadLine());
 
             if (Zoo.Cages[input].AnimalType == animal.GetType())
