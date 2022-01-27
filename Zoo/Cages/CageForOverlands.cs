@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Zoo
 {
-    class CageForOverlands
+    class CageForOverlands : Cage
     {
+        public CageForOverlands() :base("Cage for overlands")
+        {
+            AnimalType = typeof(OverlandAnimal);
+
+        }
     }
 }

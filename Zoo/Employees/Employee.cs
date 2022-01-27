@@ -37,19 +37,31 @@ namespace Zoo
             }
         }
 
-        public List<Cage> CustomCages { get; set; }
+        public List<Cage> PersonalCages { get; set; }
         public Employee(string name, int age)
         {
+            id++;
+            Id = id;
             Name = name;
             Age = age;
-            CustomCages = new List<Cage>();
+            PersonalCages = new List<Cage>();
         }
 
         public void AddCustomCage(Cage cage)
         {
-            CustomCages.Add(cage);
+            PersonalCages.Add(cage);
         }
 
         public abstract void Function();
+        public override string ToString()
+        {
+            string information = $"{Id}. {Name}    Personal cages - ";
+            foreach (var cage in PersonalCages)
+            {
+                information += $"{cage.Id},";
+            }
+
+            return information;
+        }
     }
 }

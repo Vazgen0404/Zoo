@@ -81,6 +81,7 @@ namespace Zoo
         public void Information()
         {
             Console.WriteLine($"Id - {Id}");
+            Console.WriteLine($"Cage Id - {Cage.Id}");
             Console.WriteLine($"Name - {Name}");
             Console.WriteLine($"Birthday - {Birthday.ToShortDateString()}");
             Console.WriteLine($"Gender - {Gender}");
@@ -96,7 +97,7 @@ namespace Zoo
 
         public override string ToString()
         {
-            return $"{Id}. {Name} {Birthday.ToShortDateString()} {(Alive ? "Alive" : "Died")} {Gender}";
+            return $"{Id}. {Name} {Birthday.ToShortDateString()} {Gender}";
         }
 
         public void ShowMenu()
