@@ -6,7 +6,7 @@ namespace Zoo
     class Program
     {
         public static Dictionary<int, Animal> Animals = new Dictionary<int, Animal>();
-        public static Dictionary<int, Food> Foods = new Dictionary<int, Food>();
+
 
         static void Main(string[] args)
         {
@@ -39,13 +39,10 @@ namespace Zoo
                             AddAnimal();
                             break;
                         case 2:
-                            AddFood();
                             break;
                         case 3:
-                            AddFoodsToMenu();
                             break;
                         case 4:
-                            FeedAnimals();
                             break;
                         case 5:
                             ShowAnimals();
@@ -70,49 +67,7 @@ namespace Zoo
 
             }
         }
-
-        private static void AddFood()
-        {
-            Console.WriteLine("Enter Food name - ");
-            string name = Console.ReadLine();
-            Console.WriteLine("How many calories does it have?");
-            int calories = Convert.ToInt32(Console.ReadLine());
-
-            Food food = new Food(name, calories);
-            Foods.Add(food.Id, food);
-        }
-
-        private static void AddFoodsToMenu()
-        {
-            ShowAnimals();
-
-            Console.WriteLine("Select animal ID - ");
-            int id = Convert.ToInt32(Console.ReadLine());
-
-            if (!Animals.ContainsKey(id))
-                throw new Exception("Input correct animal id");
-
-            if (!Animals[id].Alive)
-                throw new Exception("The animal is dead");
-            Console.Clear();
-
-            foreach (var food in Foods.Values)
-            {
-                Console.WriteLine(food.ToString());
-            }
-            Console.WriteLine();
-
-            Console.WriteLine("Which food do you want to add? ");
-            int foodId = Convert.ToInt32(Console.ReadLine());
-
-            if (!Foods.ContainsKey(foodId))
-                throw new Exception("Input correct food id");
-
-
-            Animals[id].AddFoodToMenu(Foods[foodId]);
-
-        }
-
+        
         private static void ShowAnimals()
         {
             foreach (var animal in Animals.Values)
@@ -123,28 +78,7 @@ namespace Zoo
 
         }
 
-        private static void FeedAnimals()
-        {
-            ShowAnimals();
-
-            Console.WriteLine("Select animal ID - ");
-            int id = Convert.ToInt32(Console.ReadLine());
-
-            if (!Animals.ContainsKey(id))
-                throw new Exception("Input correct animal id");
-
-            Console.Clear();
-            Animals[id].ShowMenu();
-
-            Console.WriteLine("Which food do you want to give?");
-            int foodId = Convert.ToInt32(Console.ReadLine());
-
-            if (!Foods.ContainsKey(foodId))
-                throw new Exception("Input correct food id");
-
-            Animals[id].Feed(Foods[foodId]);
-        }
-
+      
         private static void RemoveAnimal()
         {
             foreach (var animal in Animals.Values)
@@ -197,32 +131,30 @@ namespace Zoo
             Console.WriteLine("2.Female");
             Gender gender = (Gender)Convert.ToInt32(Console.ReadLine());
            
-            Console.WriteLine("Enter stomach size - ");
-            int size = Convert.ToInt32(Console.ReadLine());
 
-            CreateAnimal(input, name, dt, gender,size);
+            CreateAnimal(input, name, dt, gender);
         }
 
-        private static void CreateAnimal(int input, string name, DateTime dt, Gender gender, int size)
+        private static void CreateAnimal(int input, string name, DateTime dt, Gender gender)
         {
             Animal animal = null;
 
             switch (input)
             {
                 case 1:
-                    animal = new OverlandAnimal(name, dt, gender, size);
+                    animal = new OverlandAnimal(name, dt, gender);
                     break;
                 case 2:
-                    animal = new AquaticAnimal(name, dt, gender, size);
+                    animal = new AquaticAnimal(name, dt, gender);
                     break;
                 case 3:
-                    animal = new BirdAnimal(name, dt, gender, size);
+                    animal = new BirdAnimal(name, dt, gender);
                     break;
                 case 4:
-                    animal = new ReptileAnimal(name, dt, gender, size);
+                    animal = new ReptileAnimal(name, dt, gender);
                     break;
                 case 5:
-                    animal = new AmphibianAnimal(name, dt, gender, size);
+                    animal = new AmphibianAnimal(name, dt, gender);
                     break;
                 default:
                     throw new Exception("Please enter the correct number");

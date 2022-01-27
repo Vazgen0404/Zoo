@@ -8,7 +8,7 @@ namespace Zoo
 {
     class AmphibianAnimal : Animal, IWalkable, ISwimmable
     {
-        public AmphibianAnimal(string name, DateTime dt, Gender gender, int stomachSize) 
+        public AmphibianAnimal(string name, DateTime dt, Gender gender) 
             : base(name, dt, gender)
         {
             Menu.Add(new Food("Food for amphibians 1",30));

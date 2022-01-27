@@ -20,8 +20,14 @@ namespace Zoo
 
         private void FeedAnimals()
         {
-            
-
+            foreach (var cage in CustomCages)
+            {
+                int index = new Random().Next(cage.Animals.First().Menu.Count);
+                for (int i = 0; i < cage.Animals.Count - cage.Plate.Foods.Count; i++)
+                {
+                    cage.Plate.Foods.Add(cage.Animals.First().Menu[index]);
+                }
+            }
         }
     }
 }

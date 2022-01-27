@@ -10,14 +10,14 @@ namespace Zoo
     {
         private static int id;
         public int Id { get; set; }
-        public IEnumerable<Animal> Animals { get; set; }
+        public List<Animal> Animals { get; set; }
         public Plate Plate { get; set; }
 
-        public Cage(IEnumerable<Animal> animals)
+        public Cage()
         {
             id++;
             Id = id;
-            Animals = animals;
+            Animals = new List<Animal>();
             Plate = new Plate();
 
         }

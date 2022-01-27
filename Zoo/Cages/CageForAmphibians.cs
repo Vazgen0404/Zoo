@@ -8,9 +8,6 @@ namespace Zoo
 {
     class CageForAmphibians : Cage
     {
-        public CageForAmphibians() : base(new List<AmphibianAnimal>())
-        {
-
-        }
+        
     }
 }

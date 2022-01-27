@@ -32,6 +32,7 @@ namespace Zoo
         private Gender Gender { get; set; }
         private IStomach Stomach { get; set; }
         public List<Food> Menu { get; set; }
+        public Cage Cage { get; set; }
 
         public bool Alive;
         public Animal(string name, DateTime dt, Gender gender)
@@ -46,43 +47,25 @@ namespace Zoo
             Alive = true;
             SetTimer();
         }
-        private  void SetTimer()
+        private void SetTimer()
         {
             Timer timer = new Timer(5000);
             timer.Elapsed += GetHungry;
             timer.AutoReset = true;
             timer.Enabled = true;
         }
-        public void AddFoodToMenu(Food food)
+        public void Eat()
         {
-            if (!Menu.Contains(food))
-            {
-                Menu.Add(food);
-            }
-            else
-            {
-                throw new Exception("Food is already exist in menu");
-            }
-        }
-
-        public void Feed(Food food)
-        {
-            if (Alive)
+            foreach (var food in Cage.Plate.Foods)
             {
                 if (CanEat(food))
                 {
                     Stomach.Fill(food);
-                }
-                else
-                {
-                    throw new Exception("The animal does not eat this food");
+                    Cage.Plate.Foods.Remove(food);
+                    break;
                 }
             }
-            else
-            {
-                throw new Exception("The animal is dead");
-            }
-
+            
         }
 
         private bool CanEat(Food food)
@@ -94,7 +77,7 @@ namespace Zoo
         {
             Stomach.Digest(ref Alive);
         }
-        
+
         public void Information()
         {
             Console.WriteLine($"Id - {Id}");
