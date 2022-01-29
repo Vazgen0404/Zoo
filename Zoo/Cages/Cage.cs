@@ -5,20 +5,20 @@ namespace Zoo
 {
     abstract class Cage
     {
-        private static int id;
+        private static int _id;
         public int Id { get; set; }
-        public string Description { get; set; }
-        public List<Animal> Animals { get; set; }
+        private string Description { get; set; }
+        public List<Animal> Animals { get; private set; }
         public Type AnimalType { get; set; }
-        public Plate Plate { get; set; }
-        public Employee Employee { get; set; }
+        public Plate Plate { get; private set; }
+        public Employee Employee { get; private set; }
 
-        private event Action CameFood;
+        private event Action _CameFood;
 
         public Cage(string desc)
         {
-            id++;
-            Id = id;
+            _id++;
+            Id = _id;
             Description = desc;
             Animals = new List<Animal>();
             Plate = new Plate();
@@ -32,16 +32,24 @@ namespace Zoo
         {
             Animals.Add(animal);
             animal.SetCage(this);
-            CameFood += animal.Eat;
+            _CameFood += animal.Eat;
         }
         public void AddFoodInPlate(Food food)
         {
             Plate.AddFood(food);
-            CameFood();
+            _CameFood();
         }
         public void RemoveFoodInPlate(Food food)
         {
             Plate.RemoveFood(food);
+        }
+        public void ShowAnimals()
+        {
+            foreach (var animal in Animals)
+            {
+                Console.WriteLine(animal.ToString());
+            }
+            Console.WriteLine();
         }
         public override string ToString()
         {

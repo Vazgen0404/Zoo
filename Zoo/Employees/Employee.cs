@@ -6,40 +6,40 @@ namespace Zoo
 {
     abstract class Employee
     {
-        private int id;
+        private int _id;
         public int Id { get; set; }
 
-        private string name;
+        private string _name;
         public string Name
         {
-            get { return name; }
+            get { return _name; }
             set
             {
                 if (!String.IsNullOrEmpty(value))
-                { name = value; }
+                { _name = value; }
                 else throw new MyException("Please input name ",MessageType.Error);
             }
         }
 
-        private int age;
+        private int _age;
         public int Age
         {
-            get { return age; }
+            get { return _age; }
             set
             {
                 if (value > 18 && value < 60)
                 {
-                    age = value;
+                    _age = value;
                 }
                 else throw new MyException("The age of the employee does not meet the requirements",MessageType.Error);
             }
         }
 
-        public List<Cage> PersonalCages { get; set; }
+        public List<Cage> PersonalCages { get; private set; }
         public Employee(string name, int age)
         {
-            id++;
-            Id = id;
+            _id++;
+            Id = _id;
             Name = name;
             Age = age;
             PersonalCages = new List<Cage>();

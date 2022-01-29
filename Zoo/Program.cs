@@ -55,7 +55,8 @@ namespace Zoo
                 }
                 catch(MyException e)
                 {
-
+                    LogWriter.CreateOrGetLogWriter().LogWrite(e);
+                    Console.WriteLine(e.Message);
                 }
                 catch (Exception err)
                 {
@@ -86,7 +87,6 @@ namespace Zoo
                     break;
                 default:
                     throw new MyException("Please enter the correct number", MessageType.Error);
-                    break;
             }
         }
 
@@ -118,11 +118,7 @@ namespace Zoo
             {
                 Console.WriteLine(cage.ToString());
                 Console.WriteLine("Animals.");
-                foreach (var animal in cage.Animals)
-                {
-                    Console.WriteLine(animal.ToString());
-                }
-                Console.WriteLine();
+                cage.ShowAnimals();
             }
         }
 
@@ -237,7 +233,7 @@ namespace Zoo
                     cage = new CageForReptiles();
                     break;
                 default:
-                    throw new Exception("Please input correct number");
+                    throw new MyException("Please input correct number",MessageType.Error);
             }
             Zoo.Cages.Add(cage.Id, cage);
             throw new MyException("The Cage has been successfully created",MessageType.Success);

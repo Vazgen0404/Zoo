@@ -4,30 +4,30 @@ namespace Zoo
 {
     class Food
     {
-        private static int id;
+        private static int _id;
         public int Id { get; set; }
 
-        private string name;
+        private string _name;
         public string Name
         {
-            get { return name; }
+            get { return _name; }
             set
             {
                 if (!String.IsNullOrEmpty(value))
-                { name = value; }
+                { _name = value; }
                 else throw new MyException("Please input name ",MessageType.Error);
             }
         }
 
-        private int calories;
+        private int _calories;
         public int Calories
         {
-            get { return calories; }
+            get { return _calories; }
             set
             {
                 if (value > 0)
                 {
-                    calories = value;
+                    _calories = value;
                 }
                 else throw new MyException("The calories must be greater then 0",MessageType.Error);
             }
@@ -35,8 +35,8 @@ namespace Zoo
 
         public Food(string name, int calories)
         {
-            id++;
-            Id = id;
+            _id++;
+            Id = _id;
             Name = name;
             Calories = calories;
         }

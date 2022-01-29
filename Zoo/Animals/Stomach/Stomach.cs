@@ -4,21 +4,21 @@ namespace Zoo
 {
     class Stomach : IStomach
     {
-        private int content;
+        private int _content;
         public int Content
         {
-            get { return content; }
+            get { return _content; }
             set
             {
                 if (value <= Size && value > 0)
                 {
-                    content = value;
+                    _content = value;
                 }
                 else if (value > Size)
                 {
-                    content = Size;
+                    _content = Size;
                 }
-                else { content = 0; }
+                else { _content = 0; }
             }
         }
 
