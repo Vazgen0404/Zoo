@@ -14,6 +14,9 @@ namespace Zoo
         public List<Animal> Animals { get; set; }
         public Type AnimalType { get; set; }
         public Plate Plate { get; set; }
+        public Employee Employee { get; set; }
+
+        private event Action CameFood;
 
         public Cage(string desc)
         {
@@ -22,6 +25,26 @@ namespace Zoo
             Description = desc;
             Animals = new List<Animal>();
             Plate = new Plate();
+        }
+
+        public void SetEmployee(Employee employee)
+        {
+            Employee = employee;
+        }
+        public void AddAnimal(Animal animal)
+        {
+            Animals.Add(animal);
+            animal.SetCage(this);
+            CameFood += animal.Eat;
+        }
+        public void AddFoodInPlate(Food food)
+        {
+            Plate.AddFood(food);
+            CameFood();
+        }
+        public void RemoveFoodInPlate(Food food)
+        {
+            Plate.RemoveFood(food);
         }
         public override string ToString()
         {

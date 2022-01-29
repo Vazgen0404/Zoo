@@ -32,7 +32,9 @@ namespace Zoo
         private Gender Gender { get; set; }
         private IStomach Stomach { get; set; }
         public List<Food> Menu { get; set; }
-        public Cage Cage { get; set; }
+        private Cage Cage { get; set; }
+
+        private event Action CallEmployee;
 
         public bool Alive;
         public Animal(string name, DateTime dt, Gender gender)
@@ -46,6 +48,12 @@ namespace Zoo
             Menu = new List<Food>();
             Alive = true;
             SetTimer();
+        }
+
+        public void SetCage(Cage cage)
+        {
+            Cage = cage;
+            CallEmployee += Cage.Employee.Function;
         }
         private void SetTimer()
         {
@@ -63,7 +71,7 @@ namespace Zoo
                 {
                     Stomach.Fill(food);
                     ate = true;
-                    Cage.Plate.Foods.Remove(food);
+                    Cage.RemoveFoodInPlate(food);
                     break;
                 }
             }
@@ -73,7 +81,7 @@ namespace Zoo
 
         private void MakeSound()
         {
-            
+            CallEmployee();
         }
 
         private bool CanEat(Food food)

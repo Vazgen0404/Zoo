@@ -17,5 +17,10 @@ namespace Zoo
         {
             Foods.Add(food);
         }
+
+        public void RemoveFood(Food food)
+        {
+            Foods.Remove(food);
+        }
     }
 }

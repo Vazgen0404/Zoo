@@ -14,7 +14,7 @@ namespace Zoo
 
         }
 
-        public override void Function(object sender, ElapsedEventArgs e)
+        public override void Function()
         {
             FeedAnimals();
         }
@@ -26,7 +26,7 @@ namespace Zoo
                 int index = new Random().Next(cage.Animals.First().Menu.Count);
                 for (int i = 0; i < cage.Animals.Count - cage.Plate.Foods.Count; i++)
                 {
-                    cage.Plate.Foods.Add(cage.Animals.First().Menu[index]);
+                    cage.AddFoodInPlate(cage.Animals.First().Menu[index]);
                 }
             }
         }
