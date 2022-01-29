@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zoo
 {
@@ -26,7 +22,7 @@ namespace Zoo
             }
         }
 
-        public int Size { get;}
+        public int Size { get; }
 
         public Stomach()
         {
@@ -40,7 +36,7 @@ namespace Zoo
             {
                 Content += food.Calories;
             }
-            else throw new Exception("The animal's stomach is full and does not want to eat");
+            else throw new MyException("The animal's stomach is full and does not want to eat",MessageType.Information);
         }
 
         public void Digest(ref bool alive)

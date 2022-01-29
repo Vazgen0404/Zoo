@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zoo
 {
-     class Food
+    class Food
     {
         private static int id;
         public int Id { get; set; }
@@ -19,7 +15,7 @@ namespace Zoo
             {
                 if (!String.IsNullOrEmpty(value))
                 { name = value; }
-                else throw new Exception("Please input name ");
+                else throw new MyException("Please input name ",MessageType.Error);
             }
         }
 
@@ -33,7 +29,7 @@ namespace Zoo
                 {
                     calories = value;
                 }
-                else throw new Exception("The calories must be greater then 0");
+                else throw new MyException("The calories must be greater then 0",MessageType.Error);
             }
         }
 

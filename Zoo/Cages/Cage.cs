@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zoo
 {
@@ -10,7 +7,7 @@ namespace Zoo
     {
         private static int id;
         public int Id { get; set; }
-        public string  Description { get; set; }
+        public string Description { get; set; }
         public List<Animal> Animals { get; set; }
         public Type AnimalType { get; set; }
         public Plate Plate { get; set; }

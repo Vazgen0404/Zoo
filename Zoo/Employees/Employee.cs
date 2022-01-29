@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace Zoo
@@ -20,7 +17,7 @@ namespace Zoo
             {
                 if (!String.IsNullOrEmpty(value))
                 { name = value; }
-                else throw new Exception("Please input name ");
+                else throw new MyException("Please input name ",MessageType.Error);
             }
         }
 
@@ -34,7 +31,7 @@ namespace Zoo
                 {
                     age = value;
                 }
-                else throw new Exception("The age of the employee does not meet the requirements");
+                else throw new MyException("The age of the employee does not meet the requirements",MessageType.Error);
             }
         }
 
@@ -63,8 +60,8 @@ namespace Zoo
             cage.SetEmployee(this);
         }
         public void MethodForTimer(object sender, ElapsedEventArgs e)
-        { 
-            Function(); 
+        {
+            Function();
         }
         public abstract void Function();
         public override string ToString()

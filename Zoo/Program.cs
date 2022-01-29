@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Zoo
 {
     class Program
-    {   
+    {
         static void Main(string[] args)
         {
             ShowMainMenu();
@@ -51,8 +50,12 @@ namespace Zoo
                             Employees();
                             break;
                         default:
-                            throw new Exception("Please enter the correct number");
+                            throw new MyException("Please enter the correct number", MessageType.Error);
                     }
+                }
+                catch(MyException e)
+                {
+
                 }
                 catch (Exception err)
                 {
@@ -82,6 +85,7 @@ namespace Zoo
                     AddPersonalCage();
                     break;
                 default:
+                    throw new MyException("Please enter the correct number", MessageType.Error);
                     break;
             }
         }
@@ -93,30 +97,30 @@ namespace Zoo
             Console.Write("Input employee ID - ");
             int empID = Convert.ToInt32(Console.ReadLine());
 
-            if (!Zoo.Employees.ContainsKey(empID)) throw new Exception("Id not found");
+            if (!Zoo.Employees.ContainsKey(empID)) throw new MyException("Id not found",MessageType.Error);
 
             Zoo.ShowCages();
             Console.Write("Input Cage ID - ");
             int cageID = Convert.ToInt32(Console.ReadLine());
 
-            if (!Zoo.Cages.ContainsKey(cageID)) throw new Exception("Id not found");
+            if (!Zoo.Cages.ContainsKey(cageID)) throw new MyException("Id not found",MessageType.Error);
 
             if (!Zoo.Employees[empID].PersonalCages.Contains(Zoo.Cages[cageID]))
             {
                 Zoo.Employees[empID].AddCustomCage(Zoo.Cages[cageID]);
             }
-            else throw new Exception("This Cage is already personal");
+            else throw new MyException("This Cage is already personal",MessageType.Information);
 
         }
         private static void LookAtTheZoo()
         {
             foreach (var cage in Zoo.Cages.Values)
             {
-                Console.WriteLine(cage.ToString()); 
+                Console.WriteLine(cage.ToString());
                 Console.WriteLine("Animals.");
                 foreach (var animal in cage.Animals)
                 {
-                    Console.WriteLine(animal.ToString()); 
+                    Console.WriteLine(animal.ToString());
                 }
                 Console.WriteLine();
             }
@@ -136,10 +140,10 @@ namespace Zoo
                     employee = new FeedingEmployee(name, age);
                     break;
                 default:
-                    throw new Exception("Please input correct type");
+                    throw new MyException("Please input correct type",MessageType.Error);
             }
             Zoo.Employees.Add(employee.Id, employee);
-            Console.WriteLine("The Employee has been successfully created");
+            throw new MyException("The Employee has been successfully created",MessageType.Success);
         }
 
         private static int SelectEmployeeType()
@@ -157,7 +161,7 @@ namespace Zoo
             {
                 InputDataAndSave(input);
             }
-            else throw new Exception("There is no corresponding cage in the zoo");
+            else throw new MyException("There is no corresponding cage in the zoo",MessageType.Information);
         }
 
         private static bool IsExistCorrespondingCage(int input)
@@ -195,7 +199,7 @@ namespace Zoo
                     }
                     return false;
                 default:
-                    throw new Exception("Please input correct number");
+                    throw new MyException("Please input correct number",MessageType.Error);
             }
         }
 
@@ -209,7 +213,7 @@ namespace Zoo
             Console.WriteLine();
 
             Console.WriteLine("Select Animal type");
-            return Convert.ToInt32(Console.ReadLine());          
+            return Convert.ToInt32(Console.ReadLine());
         }
 
         private static void CreateCage()
@@ -235,8 +239,8 @@ namespace Zoo
                 default:
                     throw new Exception("Please input correct number");
             }
-            Zoo.Cages.Add(cage.Id,cage);
-            Console.WriteLine("The Cage has been successfully created");
+            Zoo.Cages.Add(cage.Id, cage);
+            throw new MyException("The Cage has been successfully created",MessageType.Success);
         }
 
         private static int SelectCageType()
@@ -252,7 +256,7 @@ namespace Zoo
             return Convert.ToInt32(Console.ReadLine());
         }
         private static void InputDataAndSave(int input)
-        {       
+        {
             Console.WriteLine("Enter the name - ");
             string name = Console.ReadLine();
 
@@ -270,7 +274,7 @@ namespace Zoo
             Console.WriteLine("1.Male");
             Console.WriteLine("2.Female");
             Gender gender = (Gender)Convert.ToInt32(Console.ReadLine());
-           
+
             CreateAnimal(input, name, dt, gender);
         }
 
@@ -299,7 +303,7 @@ namespace Zoo
             Zoo.Animals.Add(animal.Id, animal);
             PutInTheCage(animal);
 
-            Console.WriteLine("The Animal has been successfully created");
+            throw new MyException("The Animal has been successfully created",MessageType.Success);
         }
 
         private static void PutInTheCage(Animal animal)

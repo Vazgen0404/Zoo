@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zoo
+﻿namespace Zoo
 {
     class CageForAmphibians : Cage
     {
-        public CageForAmphibians() :base("Cage for amphibians")
+        public CageForAmphibians() : base("Cage for amphibians")
         {
             AnimalType = typeof(AmphibianAnimal);
         }
