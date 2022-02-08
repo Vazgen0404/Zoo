@@ -30,11 +30,11 @@ namespace Zoo
             Content = Size;
         }
 
-        public void Fill(Food food)
+        public void Fill(int calories)
         {
             if (Content != Size)
             {
-                Content += food.Calories;
+                Content += calories;
             }
             else throw new MyException("The animal's stomach is full and does not want to eat",MessageType.Information);
         }

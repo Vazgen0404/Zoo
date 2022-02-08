@@ -7,9 +7,7 @@ namespace Zoo
         public BirdAnimal(string name, DateTime dt, Gender gender)
             : base(name, dt, gender)
         {
-            Menu.Add(new Food("Food for birds 1", 30));
-            Menu.Add(new Food("Food for birds 2", 35));
-            Menu.Add(new Food("Food for birds 3", 40));
+            Menu.Add(FoodType.FoodForBirds);
         }
 
         public void Fly()

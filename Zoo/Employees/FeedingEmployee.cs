@@ -35,11 +35,9 @@ namespace Zoo
 
         private void PutFoodInCage(Cage cage)
         {
-            int index = new Random().Next(cage.Animals.First().Menu.Count);
-            for (int i = 0; i < cage.Animals.Count - cage.Plate.Foods.Count; i++)
-            {
-                cage.AddFoodInPlate(cage.Animals.First().Menu[index]);
-            }
+            int foodIndex = new Random().Next(cage.Animals.First().Menu.Count);
+
+            cage.AddFood(new Food(40,cage.Animals.First().Menu[foodIndex]));
         }
     }
 }

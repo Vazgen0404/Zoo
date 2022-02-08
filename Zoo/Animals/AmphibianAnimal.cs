@@ -7,9 +7,7 @@ namespace Zoo
         public AmphibianAnimal(string name, DateTime dt, Gender gender)
             : base(name, dt, gender)
         {
-            Menu.Add(new Food("Food for amphibians 1", 30));
-            Menu.Add(new Food("Food for amphibians 2", 35));
-            Menu.Add(new Food("Food for amphibians 3", 40));
+            Menu.Add(FoodType.FoodForAmphibians);
         }
 
         public void swim()

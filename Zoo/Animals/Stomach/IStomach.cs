@@ -4,7 +4,7 @@
     {
         int Content { get; set; }
         int Size { get;}
-        void Fill(Food food);
+        void Fill(int calories);
         void Digest(ref bool alive);
     }
 }

@@ -29,7 +29,7 @@ namespace Zoo
         }
         private Gender Gender { get; set; }
         private IStomach Stomach { get; set; }
-        public List<Food> Menu { get; private set; }
+        public List<FoodType> Menu { get; private set; }
         private Cage Cage { get; set; }
 
         public event EventHandler CallEmployee;
@@ -43,7 +43,7 @@ namespace Zoo
             Birthday = dt;
             Gender = gender;
             Stomach = new Stomach();
-            Menu = new List<Food>();
+            Menu = new List<FoodType>();
             Alive = true;
             SetTimer();
         }
@@ -63,15 +63,15 @@ namespace Zoo
         {
             if (Alive)
             {
-                Food food = Cage.Plate.Foods.FirstOrDefault(f => CanEat(f));
-                if(food == null)
+                if (CanEat(Cage.Food) && Cage.Food.TotalCalories > 0)
                 {
-                    MakeSound();
-                    return;
+                    while ((Stomach.Content != Stomach.Size) && Cage.Food.TotalCalories > 0)
+                    {
+                        Stomach.Fill(1);
+                        Cage.ReduceFood(1);
+                    }
                 }
-
-                Stomach.Fill(food);
-                Cage.RemoveFoodInPlate(food);
+                else MakeSound();
             }
             else
             {
@@ -81,12 +81,19 @@ namespace Zoo
 
         private void MakeSound()
         {
-            CallEmployee?.Invoke(this.Cage, new EventArgs());
+            CallEmployee?.Invoke(Cage, new EventArgs());
         }
 
         private bool CanEat(Food food)
         {
-            return Menu.Contains(food);
+            foreach (var foodtype in Menu)
+            {
+                if (food.FoodType == foodtype)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         private void GetHungry(object sender, ElapsedEventArgs e)
         {

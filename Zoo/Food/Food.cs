@@ -4,46 +4,30 @@ namespace Zoo
 {
     class Food
     {
-        private static int _id;
-        public int Id { get; set; }
-
-        private string _name;
-        public string Name
+        private int _caloriesPerKilogram;
+        public int CaloriesPerKilogram
         {
-            get { return _name; }
-            set
-            {
-                if (!String.IsNullOrEmpty(value))
-                { _name = value; }
-                else throw new MyException("Please input name ",MessageType.Error);
-            }
-        }
-
-        private int _calories;
-        public int Calories
-        {
-            get { return _calories; }
+            get { return _caloriesPerKilogram; }
             set
             {
                 if (value > 0)
                 {
-                    _calories = value;
+                    _caloriesPerKilogram = value;
                 }
                 else throw new MyException("The calories must be greater then 0",MessageType.Error);
             }
         }
-
-        public Food(string name, int calories)
+        public int TotalCalories { get; set; }
+        public FoodType FoodType { get; set; }
+        public Food(int calories,FoodType foodType)
         {
-            _id++;
-            Id = _id;
-            Name = name;
-            Calories = calories;
+            CaloriesPerKilogram = calories;
+            FoodType = foodType;
         }
 
         public override string ToString()
         {
-            return $"{Id}. {Name} - {Calories} calories";
+            return $"{CaloriesPerKilogram} calories";
         }
     }
 }

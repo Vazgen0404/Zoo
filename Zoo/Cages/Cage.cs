@@ -10,8 +10,8 @@ namespace Zoo
         private string Description { get; set; }
         public List<Animal> Animals { get; private set; }
         public Type AnimalType { get; set; }
-        public Plate Plate { get; private set; }
         public Employee Employee { get; private set; }
+        public Food Food { get; set; }
 
         private event EventHandler _CameFood;
 
@@ -21,7 +21,6 @@ namespace Zoo
             Id = _id;
             Description = desc;
             Animals = new List<Animal>();
-            Plate = new Plate();
         }
 
         public void SetEmployee(Employee employee)
@@ -38,14 +37,25 @@ namespace Zoo
             animal.SetCage(this);
             _CameFood += animal.Eat;
         }
-        public void AddFoodInPlate(Food food)
+        public void AddFood(Food food)
         {
-            Plate.AddFood(food);
-            _CameFood?.Invoke(this,new EventArgs());
+            food.TotalCalories = food.CaloriesPerKilogram * Animals.Count;
+            Food = food;
+            foreach (var item in _CameFood.GetInvocationList())
+            {
+                try
+                {
+                    item.DynamicInvoke(this, new EventArgs());
+                }
+                catch (Exception)
+                {
+                }
+            }
+            //_CameFood?.Invoke(this,new EventArgs());
         }
-        public void RemoveFoodInPlate(Food food)
+        public void ReduceFood(int calories)
         {
-            Plate.RemoveFood(food);
+            Food.TotalCalories -= calories;
         }
         public void ShowAnimals()
         {
