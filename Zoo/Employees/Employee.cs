@@ -49,7 +49,7 @@ namespace Zoo
         private void SetTimer()
         {
             Timer timer = new Timer(40000);
-            timer.Elapsed += MethodForTimer;
+            timer.Elapsed += Function;
             timer.AutoReset = true;
             timer.Enabled = true;
         }
@@ -59,11 +59,7 @@ namespace Zoo
             PersonalCages.Add(cage);
             cage.SetEmployee(this);
         }
-        public void MethodForTimer(object sender, ElapsedEventArgs e)
-        {
-            Function();
-        }
-        public abstract void Function();
+        public abstract void Function(object sender, EventArgs e);
         public override string ToString()
         {
             string information = $"{Id}. {Name}    Personal cages - ";

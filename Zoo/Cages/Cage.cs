@@ -13,7 +13,7 @@ namespace Zoo
         public Plate Plate { get; private set; }
         public Employee Employee { get; private set; }
 
-        private event Action _CameFood;
+        private event EventHandler _CameFood;
 
         public Cage(string desc)
         {
@@ -27,6 +27,10 @@ namespace Zoo
         public void SetEmployee(Employee employee)
         {
             Employee = employee;
+            foreach (var animal in Animals)
+            {
+                animal.CallEmployee += Employee.Function;
+            }
         }
         public void AddAnimal(Animal animal)
         {
@@ -37,7 +41,7 @@ namespace Zoo
         public void AddFoodInPlate(Food food)
         {
             Plate.AddFood(food);
-            _CameFood();
+            _CameFood?.Invoke(this,new EventArgs());
         }
         public void RemoveFoodInPlate(Food food)
         {

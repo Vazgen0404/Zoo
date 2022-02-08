@@ -32,7 +32,7 @@ namespace Zoo
         public List<Food> Menu { get; private set; }
         private Cage Cage { get; set; }
 
-        private event Action CallEmployee;
+        public event EventHandler CallEmployee;
 
         public bool Alive;
         public Animal(string name, DateTime dt, Gender gender)
@@ -51,7 +51,6 @@ namespace Zoo
         public void SetCage(Cage cage)
         {
             Cage = cage;
-            CallEmployee += Cage.Employee.Function;
         }
         private void SetTimer()
         {
@@ -60,7 +59,7 @@ namespace Zoo
             timer.AutoReset = true;
             timer.Enabled = true;
         }
-        public void Eat()
+        public void Eat(object sender, EventArgs e)
         {
             if (Alive)
             {
@@ -82,23 +81,21 @@ namespace Zoo
 
         private void MakeSound()
         {
-            CallEmployee();
+            CallEmployee?.Invoke(this.Cage, new EventArgs());
         }
 
         private bool CanEat(Food food)
         {
             return Menu.Contains(food);
         }
-
         private void GetHungry(object sender, ElapsedEventArgs e)
         {
             Stomach.Digest(ref Alive);
             if (Stomach.Content < 50)
             {
-                Eat();
+                Eat(null,new EventArgs());
             }
         }
-
         public void Information()
         {
             Console.WriteLine($"Id - {Id}");
